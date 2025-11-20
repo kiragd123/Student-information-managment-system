@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
@@ -8,13 +8,13 @@ import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
 import Classroom from "../../../assets/classroom.png";
 import styled from "styled-components";
-
+import { useParams } from 'react-router-dom';
 const AddClass = () => {
     const [sclassName, setSclassName] = useState("");
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const { departmentID } = useParams(); 
     const userState = useSelector(state => state.user);
     const { status, currentUser, response, error, tempDetails } = userState;
 
@@ -28,6 +28,7 @@ const AddClass = () => {
     const fields = {
         sclassName,
         adminID,
+        department:departmentID
     };
 
     const submitHandler = (event) => {

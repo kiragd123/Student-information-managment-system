@@ -4,51 +4,78 @@ const Student = require('../models/studentSchema.js');
 
 const subjectCreate = async (req, res) => {
     try {
-        const subjects = req.body.subjects.map((subject) => ({
+        const { subjects, adminID, department ,sclassName} = req.body;
+        //console.log('req.body', req.body);
+        if (!department) {
+            return res.status(400).json({ message: "Department ID is required" });
+        }
+
+        const formattedSubjects = subjects.map((subject) => ({
             subName: subject.subName,
             subCode: subject.subCode,
             sessions: subject.sessions,
+            department: department,
+            school: adminID,
+            sclassName: sclassName,
         }));
 
-        const existingSubjectBySubCode = await Subject.findOne({
-            'subjects.subCode': subjects[0].subCode,
-            school: req.body.adminID,
+        // Check for duplicate subCode within the same school
+        const existingSubject = await Subject.findOne({
+            'subCode': formattedSubjects[0].subCode,
+            school: adminID,
         });
-
-        if (existingSubjectBySubCode) {
-            res.send({ message: 'Sorry this subcode must be unique as it already exists' });
-        } else {
-            const newSubjects = subjects.map((subject) => ({
-                ...subject,
-                sclassName: req.body.sclassName,
-                school: req.body.adminID,
-            }));
-
-            const result = await Subject.insertMany(newSubjects);
-            res.send(result);
+        if (existingSubject) {
+            return res.status(400).json({ message: "Sorry, this subCode already exists." });
         }
+
+        const result = await Subject.insertMany(formattedSubjects);
+        res.status(201).json(result);
+
     } catch (err) {
+        console.error(err);
         res.status(500).json(err);
     }
 };
 
+
 const allSubjects = async (req, res) => {
     try {
+      //console.log('Fetching subjects for department ID:', req.params.id);
         let subjects = await Subject.find({ school: req.params.id })
-            .populate("sclassName", "sclassName")
+        .populate('department', 'departmentName')
+        .populate('sclassName', 'sclassName') 
+        .populate('teacher', 'name')
+       
+        //console.log(subjects);
         if (subjects.length > 0) {
             res.send(subjects)
         } else {
             res.send({ message: "No subjects found" });
         }
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json(err.message);
+    }
+};
+const delSubjects = async (req, res) => {
+    try {
+        console.log("Deleting subject with id:", req.params.id);
+
+        const deletedSubject = await Subject.findByIdAndDelete(req.params.id);
+
+        if (!deletedSubject) {
+            return res.status(404).json({ message: "No subject found with that ID" });
+        }
+
+        res.json({ message: "Subject deleted successfully", deletedSubject });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
 
 const classSubjects = async (req, res) => {
     try {
         let subjects = await Subject.find({ sclassName: req.params.id })
+        //console.log(subjects);
         if (subjects.length > 0) {
             res.send(subjects)
         } else {
@@ -141,6 +168,7 @@ const deleteSubjects = async (req, res) => {
 const deleteSubjectsByClass = async (req, res) => {
     try {
         const deletedSubjects = await Subject.deleteMany({ sclassName: req.params.id });
+        console.log('deletedSubjects', deletedSubjects);
 
         // Set the teachSubject field to null in teachers
         await Teacher.updateMany(

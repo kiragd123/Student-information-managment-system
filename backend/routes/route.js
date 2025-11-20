@@ -2,7 +2,8 @@ const router = require('express').Router();
 
 // const { adminRegister, adminLogIn, deleteAdmin, getAdminDetail, updateAdmin } = require('../controllers/admin-controller.js');
 
-const { adminRegister, adminLogIn, getAdminDetail} = require('../controllers/admin-controller.js');
+const { adminRegister, adminLogIn, getAdminDetail,deleteAdmin,updateAdmin} = require('../controllers/admin-controller.js');
+//const {itStaffRegister, itStaffLogIn,getITStaffDetail} = require('../controllers/itStaff-controller.js');
 
 const { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents } = require('../controllers/class-controller.js');
 const { complainCreate, complainList } = require('../controllers/complain-controller.js');
@@ -22,24 +23,42 @@ const {
     clearAllStudentsAttendance,
     removeStudentAttendanceBySubject,
     removeStudentAttendance } = require('../controllers/student_controller.js');
-const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
+const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects} = require('../controllers/subject-controller.js');
 const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
+const backupController=require("../controllers/backup_controller.js")
+//const { verifyLicense,deactivateLicense,createLicense }=require("../controllers/license_controller.js")
+const {forgotPassword,resetPassword}=require("../controllers/forgot_pass_controller.js")
+const departmentController = require('../controllers/department-controller.js');
+
+//forgot password
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', resetPassword);
+
+//license
+// router.post('/createLicense', createLicense);
+// router.get('/verifyLicense', verifyLicense);
+// router.put('/deactivateLicense/:id', deactivateLicense);
 
 // Admin
 router.post('/AdminReg', adminRegister);
 router.post('/AdminLogin', adminLogIn);
 
 router.get("/Admin/:id", getAdminDetail)
-// router.delete("/Admin/:id", deleteAdmin)
+router.delete("/Admin/:id", deleteAdmin)
 
-// router.put("/Admin/:id", updateAdmin)
-
+ router.put("/Admin/:id", updateAdmin)
 // Student
 
+router.post('/runBackup', backupController.runBackup);
+router.get('/listBackups', backupController.listBackups);
+router.post('/recoverBackup/:id', backupController.recoverBackup);
+router.post('/runMaintenance', backupController.runMaintenance);
+
 router.post('/StudentReg', studentRegister);
+
 router.post('/StudentLogin', studentLogIn)
 
-router.get("/Students/:id", getStudents)
+router.get("/Students/:departmentID", getStudents)
 router.get("/Student/:id", getStudentDetail)
 
 router.delete("/Students/:id", deleteStudents)
@@ -47,7 +66,7 @@ router.delete("/StudentsClass/:id", deleteStudentsByClass)
 router.delete("/Student/:id", deleteStudent)
 
 router.put("/Student/:id", updateStudent)
-
+ 
 router.put('/UpdateExamResult/:id', updateExamResult)
 
 router.put('/StudentAttendance/:id', studentAttendance)
@@ -103,6 +122,17 @@ router.get("/Sclass/Students/:id", getSclassStudents)
 router.delete("/Sclasses/:id", deleteSclasses)
 router.delete("/Sclass/:id", deleteSclass)
 
+//department
+router.post('/DepartmentCreate', departmentController.createDepartment);
+
+router.get('/DepartmentList/:id', departmentController.departmentList);
+router.get("/Department/:id", departmentController.getDepartmentDetail)
+router.delete("/Department/:id", departmentController.deleteDepartment)
+
+router.put('/AssignSubjectToDepartment/:id', departmentController.assignSubjectToDepartment);
+router.put('/AssignTeacherToDepartment/:id', departmentController.assignTeacherToDepartment);
+router.put('/AssignClassToDepartment/:id', departmentController.assignClassToDepartment);
+router.put('/AssignStudentToDepartment/:id', departmentController.assignStudentToDepartment);
 // Subject
 
 router.post('/SubjectCreate', subjectCreate);

@@ -1,0 +1,88 @@
+{
+  "students": [
+    {
+      "_id": "6916dd272a2c998ef2a43366",
+      "name": "sami",
+      "rollNum": 1,
+      "password": "$2b$10$x5h0KeHq6ymnhJrgmH0YzOekJ1gfm8dlhdHD3UqmOv4Nv8GnG2QUO",
+      "sclassName": "6916dc9c2a2c998ef2a432fd",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "role": "Student",
+      "attendance": [
+        {
+          "date": "2025-11-14T00:00:00.000Z",
+          "status": "Present",
+          "subName": "6916dccb2a2c998ef2a43323",
+          "_id": "6916dd342a2c998ef2a43378"
+        }
+      ],
+      "examResult": [
+        {
+          "subName": "6916dccb2a2c998ef2a43323",
+          "marksObtained": 90,
+          "_id": "6916dd492a2c998ef2a433a0"
+        }
+      ],
+      "__v": 2
+    }
+  ],
+  "teachers": [
+    {
+      "_id": "6916dcfd2a2c998ef2a4333b",
+      "name": "jon",
+      "email": "jon@gmail.com",
+      "password": "$2b$10$rEtBb3I5vcAwDNESNkuPH.iYl8QSO6/EuEjaEfUo6JCTGj5yzj4zG",
+      "role": "Teacher",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "teachSubject": "6916dccb2a2c998ef2a43323",
+      "teachSclass": "6916dc9c2a2c998ef2a432fd",
+      "attendance": [],
+      "createdAt": "2025-11-14T07:40:45.025Z",
+      "updatedAt": "2025-11-14T07:40:45.025Z",
+      "__v": 0
+    }
+  ],
+  "sclasses": [
+    {
+      "_id": "6916dc9c2a2c998ef2a432fd",
+      "sclassName": "ROOM1",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "createdAt": "2025-11-14T07:39:08.513Z",
+      "updatedAt": "2025-11-14T07:39:08.513Z",
+      "__v": 0
+    }
+  ],
+  "admins": [
+    {
+      "_id": "6916dc3f2a2c998ef2a432df",
+      "name": "kb",
+      "email": "antibugger21@gmail.com",
+      "password": "password",
+      "role": "Admin",
+      "schoolName": "test",
+      "resetPasswordToken": null,
+      "resetTokenExpiry": null,
+      "__v": 0
+    }
+  ],
+  "complains": [],
+  "notices": [],
+  "subjects": [
+    {
+      "_id": "6916dccb2a2c998ef2a43323",
+      "subName": "C#",
+      "subCode": "01",
+      "sessions": "01",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "sclassName": "6916dc9c2a2c998ef2a432fd",
+      "__v": 0,
+      "createdAt": "2025-11-14T07:39:55.049Z",
+      "updatedAt": "2025-11-14T07:40:45.028Z",
+      "teacher": "6916dcfd2a2c998ef2a4333b"
+    }
+  ]
+}

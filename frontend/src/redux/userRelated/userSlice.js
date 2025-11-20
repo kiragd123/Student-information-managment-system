@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const storedUser =
+    JSON.parse(localStorage.getItem('user')) ||
+    JSON.parse(sessionStorage.getItem('user'));
+
 const initialState = {
     status: 'idle',
     userDetails: [],
     tempDetails: [],
     loading: false,
-    currentUser: JSON.parse(localStorage.getItem('user')) || null,
-    currentRole: (JSON.parse(localStorage.getItem('user')) || {}).role || null,
+    currentUser: storedUser || null,
+    currentRole: storedUser?.role || null,
     error: null,
     response: null,
     darkMode: true
@@ -33,7 +37,11 @@ const userSlice = createSlice({
             state.status = 'success';
             state.currentUser = action.payload;
             state.currentRole = action.payload.role;
-            localStorage.setItem('user', JSON.stringify(action.payload));
+            if (action.payload.rememberMe) {
+                localStorage.setItem('user', JSON.stringify(action.payload));
+            } else {
+                sessionStorage.setItem('user', JSON.stringify(action.payload));
+            }
             state.response = null;
             state.error = null;
         },
@@ -79,7 +87,19 @@ const userSlice = createSlice({
         },
         toggleDarkMode: (state) => {
             state.darkMode = !state.darkMode;
-        }
+        },
+        resetUserState: (state) => {
+            state.response = null;
+            state.error = null;
+            state.userDetails = null;
+        },
+        forgotPasswordSuccess: (state, action) => {
+            state.loading = false;
+            state.response = action.payload; // success message
+            state.error = null;
+        },
+
+
     },
 });
 
@@ -96,7 +116,9 @@ export const {
     getRequest,
     getFailed,
     getError,
-    toggleDarkMode
+    toggleDarkMode,
+    resetUserState,
+    forgotPasswordSuccess
 } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

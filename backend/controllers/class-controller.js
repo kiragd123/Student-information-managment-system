@@ -7,12 +7,14 @@ const sclassCreate = async (req, res) => {
     try {
         const sclass = new Sclass({
             sclassName: req.body.sclassName,
-            school: req.body.adminID
+            school: req.body.adminID,
+            department:req.body.department
         });
 
         const existingSclassByName = await Sclass.findOne({
             sclassName: req.body.sclassName,
-            school: req.body.adminID
+            school: req.body.adminID,
+            department:req.body.department
         });
 
         if (existingSclassByName) {
@@ -30,8 +32,10 @@ const sclassCreate = async (req, res) => {
 const sclassList = async (req, res) => {
     try {
         let sclasses = await Sclass.find({ school: req.params.id })
+            .populate('department', 'departmentName'); // ✅ populate department name
+        //console.log(sclasses);
         if (sclasses.length > 0) {
-            res.send(sclasses)
+            res.send(sclasses);
         } else {
             res.send({ message: "No sclasses found" });
         }
@@ -39,7 +43,6 @@ const sclassList = async (req, res) => {
         res.status(500).json(err);
     }
 };
-
 const getSclassDetail = async (req, res) => {
     try {
         let sclass = await Sclass.findById(req.params.id);
@@ -57,7 +60,12 @@ const getSclassDetail = async (req, res) => {
 
 const getSclassStudents = async (req, res) => {
     try {
+        console.log('Fetching students for class ID:', req.params.id);
         let students = await Student.find({ sclassName: req.params.id })
+        .populate('department', 'departmentName')
+        .populate('sclassName', 'sclassName');
+        //console.log(students);
+      
         if (students.length > 0) {
             let modifiedStudents = students.map((student) => {
                 return { ...student._doc, password: undefined };

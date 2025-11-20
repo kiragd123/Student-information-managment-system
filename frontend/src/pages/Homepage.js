@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Grid, Box, Button } from '@mui/material';
 import styled from 'styled-components';
-import Students from "../assets/students.svg";
+import Students from "../assets/student.jfif";
 import { LightPurpleButton } from '../components/buttonStyles';
 
 const Homepage = () => {
@@ -10,34 +10,28 @@ const Homepage = () => {
         <StyledContainer>
             <Grid container spacing={0}>
                 <Grid item xs={12} md={6}>
-                    <img src={Students} alt="students" style={{ width: '100%' }} />
+                    <img src={Students} alt="students" style={{ width: '100%' ,marginTop: '100px'}} />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} marginTop={10}>
                     <StyledPaper elevation={3}>
                         <StyledTitle>
-                            Welcome to
+                            Welcome to 
                             <br />
-                            School Management
+                            Student Information Management
                             <br />
                             System
                         </StyledTitle>
                         <StyledText>
-                            Streamline school management, class organization, and add students and faculty.
-                            Seamlessly track attendance, assess performance, and provide feedback.
-                            Access records, view marks, and communicate effortlessly.
+                            Effortlessly manage students, organize classes, and streamline faculty coordination.
+                            Track attendance, evaluate performance, and provide meaningful feedback—all in one place.
+                            Easily access student records, view exam results, and enable smooth communication between teachers, 
+                            students.
                         </StyledText>
                         <StyledBox>
                             <StyledLink to="/choose">
                                 <LightPurpleButton variant="contained" fullWidth>
                                     Login
                                 </LightPurpleButton>
-                            </StyledLink>
-                            <StyledLink to="/chooseasguest">
-                                <Button variant="outlined" fullWidth
-                                    sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
-                                >
-                                    Login as Guest
-                                </Button>
                             </StyledLink>
                             <StyledText>
                                 Don't have an account?{' '}

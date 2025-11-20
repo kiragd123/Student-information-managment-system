@@ -14,7 +14,6 @@ import {
 
 export const getAllSclasses = (id, address) => async (dispatch) => {
     dispatch(getRequest());
-
     try {
         const result = await axios.get(`${process.env.REACT_APP_BASE_URL}/${address}List/${id}`);
         if (result.data.message) {
@@ -60,6 +59,7 @@ export const getSubjectList = (id, address) => async (dispatch) => {
 
     try {
         const result = await axios.get(`${process.env.REACT_APP_BASE_URL}/${address}/${id}`);
+        //console.log(result.data);
         if (result.data.message) {
             dispatch(getFailed(result.data.message));
         } else {
@@ -68,6 +68,7 @@ export const getSubjectList = (id, address) => async (dispatch) => {
     } catch (error) {
         dispatch(getError(error));
     }
+
 }
 
 export const getTeacherFreeClassSubjects = (id) => async (dispatch) => {

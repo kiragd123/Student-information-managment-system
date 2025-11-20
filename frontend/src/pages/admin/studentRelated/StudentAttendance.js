@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getUserDetails } from '../../../redux/userRelated/userHandle';
 import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { updateStudentFields } from '../../../redux/studentRelated/studentHandle';
@@ -15,11 +15,13 @@ import { PurpleButton } from '../../../components/buttonStyles';
 import Popup from '../../../components/Popup';
 
 const StudentAttendance = ({ situation }) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { currentUser, userDetails, loading } = useSelector((state) => state.user);
     const { subjectsList } = useSelector((state) => state.sclass);
     const { response, error, statestatus } = useSelector((state) => state.student);
     const params = useParams()
+    console.log("Subjects List:", subjectsList);
 
     const [studentID, setStudentID] = useState("");
     const [subjectName, setSubjectName] = useState("");
@@ -30,6 +32,7 @@ const StudentAttendance = ({ situation }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
+    
 
     useEffect(() => {
         if (situation === "Student") {
@@ -44,6 +47,7 @@ const StudentAttendance = ({ situation }) => {
             setChosenSubName(subjectID);
         }
     }, [situation]);
+
 
     useEffect(() => {
         if (userDetails && userDetails.sclassName && situation === "Student") {
@@ -72,6 +76,9 @@ const StudentAttendance = ({ situation }) => {
             setLoader(false)
             setShowPopup(true)
             setMessage(response)
+            navigate("/Admin/students/student/" + studentID);
+            //  dispatch(resetStudentState());
+
         }
         else if (error) {
             setLoader(false)
@@ -82,6 +89,8 @@ const StudentAttendance = ({ situation }) => {
             setLoader(false)
             setShowPopup(true)
             setMessage("Done Successfully")
+            navigate("/Admin/students/student/" + studentID);
+
         }
     }, [response, statestatus, error])
 

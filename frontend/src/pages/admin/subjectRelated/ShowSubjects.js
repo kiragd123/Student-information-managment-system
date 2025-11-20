@@ -12,8 +12,10 @@ import TableTemplate from '../../../components/TableTemplate';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
+import axios from 'axios';
 
 const ShowSubjects = () => {
+    const API = 'http://localhost:5000'
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { subjectsList, loading, error, response } = useSelector((state) => state.sclass);
@@ -30,33 +32,42 @@ const ShowSubjects = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
 
-    const deleteHandler = (deleteID, address) => {
-        console.log(deleteID);
-        console.log(address);
-        setMessage("Sorry the delete function has been disabled for now.")
-        setShowPopup(true)
+    const deleteHandler = async (deleteID, address) => {
 
-        // dispatch(deleteUser(deleteID, address))
-        //     .then(() => {
-        //         dispatch(getSubjectList(currentUser._id, "AllSubjects"));
-        //     })
+        try {
+            const response = await axios.delete(`${API}/Subject/${deleteID}`);
+            console.log(response.data);
+            if (response.status === 200) {
+                setMessage("Deleted successfully");
+                setShowPopup(true);
+                dispatch(getSubjectList(currentUser._id, "AllSubjects"));
+            } else {
+                setMessage("Failed to delete. Please try again.");
+                setShowPopup(true);
+            }
+        } catch (err) {
+            console.log(err);
+            setMessage("Sorry the delete function has been disabled for now.");
+            setShowPopup(true);
+        }
     }
 
     const subjectColumns = [
-        { id: 'subName', label: 'Sub Name', minWidth: 170 },
+        { id: 'subName', label: 'Course Name', minWidth: 170 },
         { id: 'sessions', label: 'Sessions', minWidth: 170 },
-        { id: 'sclassName', label: 'Class', minWidth: 170 },
+        { id: 'department', label: 'Department Name', minWidth: 170 },
+        {id:'classID', label:'Class Name', minWidth:170},
     ]
 
-    const subjectRows = subjectsList.map((subject) => {
+    const subjectRows = (Array.isArray(subjectsList) ? subjectsList : []).map((subject) => {
         return {
-            subName: subject.subName,
-            sessions: subject.sessions,
-            sclassName: subject.sclassName.sclassName,
-            sclassID: subject.sclassName._id,
-            id: subject._id,
+            subName: subject?.subName || "N/A",
+            sessions: subject?.sessions || 0,
+            department: subject?.department?.departmentName || "N/A",
+            id: subject?._id || "",
+            classID: subject?.sclassName?.sclassName || "n/a",
         };
-    })
+    });
 
     const SubjectsButtonHaver = ({ row }) => {
         return (
@@ -72,16 +83,6 @@ const ShowSubjects = () => {
         );
     };
 
-    const actions = [
-        {
-            icon: <PostAddIcon color="primary" />, name: 'Add New Subject',
-            action: () => navigate("/Admin/subjects/chooseclass")
-        },
-        {
-            icon: <DeleteIcon color="error" />, name: 'Delete All Subjects',
-            action: () => deleteHandler(currentUser._id, "Subjects")
-        }
-    ];
 
     return (
         <>
@@ -101,7 +102,6 @@ const ShowSubjects = () => {
                             {Array.isArray(subjectsList) && subjectsList.length > 0 &&
                                 <TableTemplate buttonHaver={SubjectsButtonHaver} columns={subjectColumns} rows={subjectRows} />
                             }
-                            <SpeedDialTemplate actions={actions} />
                         </Paper>
                     }
                 </>

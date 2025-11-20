@@ -11,7 +11,10 @@ import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import ReportIcon from '@mui/icons-material/Report';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-
+import BuildCircleOutlinedIcon from '@mui/icons-material/BuildCircleOutlined';
+import BackupOutlinedIcon from '@mui/icons-material/BackupOutlined';
+import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
+import SchoolIcon from '@mui/icons-material/School';
 const SideBar = () => {
     const location = useLocation();
     return (
@@ -23,6 +26,12 @@ const SideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItemButton>
+                <ListItemButton component={Link} to="/Admin/departments">
+                    <ListItemIcon>
+                        <SchoolIcon color={location.pathname.startsWith("/Admin/departments") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Departments" />
+                </ListItemButton>
                 <ListItemButton component={Link} to="/Admin/classes">
                     <ListItemIcon>
                         <ClassOutlinedIcon color={location.pathname.startsWith('/Admin/classes') ? 'primary' : 'inherit'} />
@@ -33,7 +42,7 @@ const SideBar = () => {
                     <ListItemIcon>
                         <AssignmentIcon color={location.pathname.startsWith("/Admin/subjects") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Subjects" />
+                    <ListItemText primary="Courses" />
                 </ListItemButton>
                 <ListItemButton component={Link} to="/Admin/teachers">
                     <ListItemIcon>
@@ -58,6 +67,31 @@ const SideBar = () => {
                         <ReportIcon color={location.pathname.startsWith("/Admin/complains") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Complains" />
+                </ListItemButton>
+            </React.Fragment>
+            <React.Fragment>
+                <ListSubheader component="div" inset>
+                    System Management
+                </ListSubheader>
+                <ListItemButton component={Link} to="/Admin/systemManagement/maintenance">
+                    <ListItemIcon>
+                        <BuildCircleOutlinedIcon color={location.pathname.startsWith("/Admin/systemManagement/maintenance") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Maintaining" />
+                </ListItemButton>
+
+                <ListItemButton component={Link} to="/Admin/systemManagement/backup">
+                    <ListItemIcon>
+                        <BackupOutlinedIcon color={location.pathname.startsWith("/Admin/systemManagement/backup") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Database Backup" />
+                </ListItemButton>
+
+                <ListItemButton component={Link} to="/Admin/systemManagement/recovery">
+                    <ListItemIcon>
+                        <RestoreOutlinedIcon color={location.pathname.startsWith("/Admin/systemManagement/recovery") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Recovery" />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

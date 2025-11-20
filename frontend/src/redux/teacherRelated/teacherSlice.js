@@ -6,6 +6,7 @@ const initialState = {
     loading: false,
     error: null,
     response: null,
+    statestatus: "idle",
 };
 
 const teacherSlice = createSlice({
@@ -40,7 +41,13 @@ const teacherSlice = createSlice({
             state.loading = false;
             state.error = null;
             state.response = null;
+        },
+        resetTeacherState: (state) => {
+            state.getresponse = null;
+            state.error = null;
+            state.statestatus = "idle";
         }
+
     },
 });
 
@@ -50,7 +57,8 @@ export const {
     getFailed,
     getError,
     doneSuccess,
-    postDone
+    postDone,
+    resetTeacherState
 } = teacherSlice.actions;
 
 export const teacherReducer = teacherSlice.reducer;

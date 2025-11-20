@@ -11,6 +11,7 @@ import {
     getRequest,
     getFailed,
     getError,
+    forgotPasswordSuccess
 } from './userSlice';
 
 export const loginUser = (fields, role) => async (dispatch) => {
@@ -21,7 +22,7 @@ export const loginUser = (fields, role) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
         });
         if (result.data.role) {
-            dispatch(authSuccess(result.data));
+            dispatch(authSuccess(result.data.user));
         } else {
             dispatch(authFailed(result.data.message));
         }
@@ -122,5 +123,17 @@ export const addStuff = (fields, address) => async (dispatch) => {
         }
     } catch (error) {
         dispatch(authError(error));
+    }
+};
+export const forgotPassword = (fields) => async (dispatch) => {
+    try {
+        dispatch(getRequest()); // show loading
+        const result = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/forgot-password`, fields, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        dispatch(forgotPasswordSuccess(result.data.message || "Password reset link sent to your email"));
+    } catch (error) {
+        dispatch(getError(error.response?.data?.message || "Something went wrong"));
     }
 };

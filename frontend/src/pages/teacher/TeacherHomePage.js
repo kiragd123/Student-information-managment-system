@@ -1,7 +1,6 @@
-import { Container, Grid, Paper } from '@mui/material'
+import { Container, Grid, Paper, Box, Typography } from '@mui/material'
 import SeeNotice from '../../components/SeeNotice';
 import CountUp from 'react-countup';
-import styled from 'styled-components';
 import Students from "../../assets/img1.png";
 import Lessons from "../../assets/subjects.svg";
 import Tests from "../../assets/assignment.svg";
@@ -27,44 +26,107 @@ const TeacherHomePage = () => {
     const numberOfStudents = sclassStudents && sclassStudents.length;
     const numberOfSessions = subjectDetails && subjectDetails.sessions
 
+    const testsTaken = numberOfSessions;
+    const totalMinutes = numberOfSessions * 40;
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    const paperSx = {
+        padding: '16px',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '200px',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        textAlign: 'center'
+    };
+
+    const titleSx = {
+        fontSize: '1.25rem'
+    };
+
+    const countUpSx = {
+        fontSize: 'calc(1.3rem + .6vw)',
+        color: 'green'
+    };
+
     return (
         <>
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <Paper sx={paperSx}>
                             <img src={Students} alt="Students" />
-                            <Title>
-                                Class Students
-                            </Title>
-                            <Data start={0} end={numberOfStudents} duration={2.5} />
-                        </StyledPaper>
+                            <Typography component="p" sx={titleSx}>
+                               Students
+                            </Typography>
+                            <CountUp
+                                start={0}
+                                end={numberOfStudents}
+                                duration={2.5}
+                            >
+                                {({ countUpRef }) => (
+                                    <Typography
+                                        component="span"
+                                        ref={countUpRef}
+                                        sx={countUpSx}
+                                    />
+                                )}
+                            </CountUp>
+                        </Paper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <Paper sx={paperSx}>
                             <img src={Lessons} alt="Lessons" />
-                            <Title>
+                            <Typography component="p" sx={titleSx}>
                                 Total Lessons
-                            </Title>
-                            <Data start={0} end={numberOfSessions} duration={5} />
-                        </StyledPaper>
+                            </Typography>
+                            <CountUp
+                                start={0}
+                                end={numberOfSessions}
+                                duration={5}
+                            >
+                                {({ countUpRef }) => (
+                                    <Typography
+                                        component="span"
+                                        ref={countUpRef}
+                                        sx={countUpSx}
+                                    />
+                                )}
+                            </CountUp>
+                        </Paper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <Paper sx={paperSx}>
                             <img src={Tests} alt="Tests" />
-                            <Title>
+                            <Typography component="p" sx={titleSx}>
                                 Tests Taken
-                            </Title>
-                            <Data start={0} end={24} duration={4} />
-                        </StyledPaper>
+                            </Typography>
+                            <CountUp
+                                start={0}
+                                end={testsTaken}
+                                duration={4}
+                            >
+                                {({ countUpRef }) => (
+                                    <Typography
+                                        component="span"
+                                        ref={countUpRef}
+                                        sx={countUpSx}
+                                    />
+                                )}
+                            </CountUp>
+                        </Paper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <Paper sx={paperSx}>
                             <img src={Time} alt="Time" />
-                            <Title>
+                            <Typography component="p" sx={titleSx}>
                                 Total Hours
-                            </Title>
-                            <Data start={0} end={30} duration={4} suffix="hrs"/>                        </StyledPaper>
+                            </Typography>
+                            <Typography component="span" sx={countUpSx}>
+                                {hours} hrs {minutes > 0 ? `${minutes} mins` : ""}
+                            </Typography>
+                        </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
@@ -76,24 +138,5 @@ const TeacherHomePage = () => {
         </>
     )
 }
-
-const StyledPaper = styled(Paper)`
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-`;
-
-const Title = styled.p`
-  font-size: 1.25rem;
-`;
-
-const Data = styled(CountUp)`
-  font-size: calc(1.3rem + .6vw);
-  color: green;
-`;
 
 export default TeacherHomePage

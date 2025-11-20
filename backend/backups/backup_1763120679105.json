@@ -1,0 +1,273 @@
+{
+  "students": [
+    {
+      "_id": "6916dd272a2c998ef2a43366",
+      "name": "sami",
+      "rollNum": 1,
+      "password": "$2b$10$x5h0KeHq6ymnhJrgmH0YzOekJ1gfm8dlhdHD3UqmOv4Nv8GnG2QUO",
+      "sclassName": "6916dc9c2a2c998ef2a432fd",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "role": "Student",
+      "attendance": [
+        {
+          "date": "2025-11-14T00:00:00.000Z",
+          "status": "Present",
+          "subName": "6916dccb2a2c998ef2a43323",
+          "_id": "6916dd342a2c998ef2a43378"
+        }
+      ],
+      "examResult": [
+        {
+          "subName": "6916dccb2a2c998ef2a43323",
+          "marksObtained": 90,
+          "_id": "6916dd492a2c998ef2a433a0"
+        }
+      ],
+      "__v": 2
+    },
+    {
+      "_id": "69170f8282265e619a028dba",
+      "name": "ll",
+      "rollNum": 2,
+      "password": "$2b$10$0CmCHrK59oGecOhWo9MYH.PSPuSvabbqbCj3xI87Frghc9vA3iF3C",
+      "sclassName": "69170f1e82265e619a028d57",
+      "school": "69170ef982265e619a028d39",
+      "department": "69170f1182265e619a028d4e",
+      "role": "Student",
+      "attendance": [],
+      "examResult": [],
+      "__v": 0
+    },
+    {
+      "_id": "691714bd82265e619a028e57",
+      "name": "stu1",
+      "rollNum": 1,
+      "password": "$2b$10$fZXC5ijqL6kVJ027GvY9gerghI1XzeuEpmk9Ey51/Kc6seXTXcKFq",
+      "sclassName": "6917145582265e619a028df0",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917143f82265e619a028dd1",
+      "role": "Student",
+      "attendance": [
+        {
+          "date": "2025-11-14T00:00:00.000Z",
+          "status": "Present",
+          "subName": "6917146b82265e619a028e0c",
+          "_id": "691714c982265e619a028e69"
+        }
+      ],
+      "examResult": [
+        {
+          "subName": "6917146b82265e619a028e0c",
+          "marksObtained": 78,
+          "_id": "691714dc82265e619a028e91"
+        }
+      ],
+      "__v": 2
+    },
+    {
+      "_id": "6917156b82265e619a028f09",
+      "name": "stu2",
+      "rollNum": 1,
+      "password": "$2b$10$PNPIJsWbwDlV9G4ILZNIoe1xJVxOmXUL4hrrRQgGVDdjgnkwVe9Ai",
+      "sclassName": "6917150f82265e619a028ec5",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917150282265e619a028eb4",
+      "role": "Student",
+      "attendance": [],
+      "examResult": [],
+      "__v": 0
+    }
+  ],
+  "teachers": [
+    {
+      "_id": "6916dcfd2a2c998ef2a4333b",
+      "name": "jon",
+      "email": "jon@gmail.com",
+      "password": "$2b$10$rEtBb3I5vcAwDNESNkuPH.iYl8QSO6/EuEjaEfUo6JCTGj5yzj4zG",
+      "role": "Teacher",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "teachSubject": "6916dccb2a2c998ef2a43323",
+      "teachSclass": "6916dc9c2a2c998ef2a432fd",
+      "attendance": [],
+      "createdAt": "2025-11-14T07:40:45.025Z",
+      "updatedAt": "2025-11-14T07:40:45.025Z",
+      "__v": 0
+    },
+    {
+      "_id": "69170f6682265e619a028d8f",
+      "name": "smon",
+      "email": "smon@gmail.com",
+      "password": "$2b$10$UvfMUChEqpDDFtIYzsfhMeLWIFxWxnbTiZAFo3tyb51lR.bMfffBG",
+      "role": "Teacher",
+      "school": "69170ef982265e619a028d39",
+      "department": "69170f1182265e619a028d4e",
+      "teachSubject": "69170f3582265e619a028d6d",
+      "teachSclass": "69170f1e82265e619a028d57",
+      "attendance": [],
+      "createdAt": "2025-11-14T11:15:50.098Z",
+      "updatedAt": "2025-11-14T11:15:50.098Z",
+      "__v": 0
+    },
+    {
+      "_id": "6917149882265e619a028e2c",
+      "name": "tier",
+      "email": "tier@gmail.com",
+      "password": "$2b$10$gnVYB6.mqJNXFeKTO23Ku.N32t6KDtWtvUE45Vh6OI9cqikybba0C",
+      "role": "Teacher",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917143f82265e619a028dd1",
+      "teachSubject": "6917146b82265e619a028e0c",
+      "teachSclass": "6917145582265e619a028df0",
+      "attendance": [],
+      "createdAt": "2025-11-14T11:38:00.955Z",
+      "updatedAt": "2025-11-14T11:38:00.955Z",
+      "__v": 0
+    },
+    {
+      "_id": "6917159282265e619a028f27",
+      "name": "teach2",
+      "email": "teach2@gmail.com",
+      "password": "$2b$10$CIEioAWXrdC82V8X/RDiJ.eFxlwkQ2fDDyS6wPATvgchs1aKWEsRq",
+      "role": "Teacher",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917150282265e619a028eb4",
+      "teachSubject": "6917154d82265e619a028ee4",
+      "teachSclass": "6917150f82265e619a028ec5",
+      "attendance": [],
+      "createdAt": "2025-11-14T11:42:10.187Z",
+      "updatedAt": "2025-11-14T11:42:10.187Z",
+      "__v": 0
+    }
+  ],
+  "sclasses": [
+    {
+      "_id": "6916dc9c2a2c998ef2a432fd",
+      "sclassName": "ROOM1",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "createdAt": "2025-11-14T07:39:08.513Z",
+      "updatedAt": "2025-11-14T07:39:08.513Z",
+      "__v": 0
+    },
+    {
+      "_id": "69170f1e82265e619a028d57",
+      "sclassName": "Room2",
+      "school": "69170ef982265e619a028d39",
+      "department": "69170f1182265e619a028d4e",
+      "createdAt": "2025-11-14T11:14:38.455Z",
+      "updatedAt": "2025-11-14T11:14:38.455Z",
+      "__v": 0
+    },
+    {
+      "_id": "6917145582265e619a028df0",
+      "sclassName": "ROO1",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917143f82265e619a028dd1",
+      "createdAt": "2025-11-14T11:36:53.711Z",
+      "updatedAt": "2025-11-14T11:36:53.711Z",
+      "__v": 0
+    },
+    {
+      "_id": "6917150f82265e619a028ec5",
+      "sclassName": "Room1",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917150282265e619a028eb4",
+      "createdAt": "2025-11-14T11:39:59.784Z",
+      "updatedAt": "2025-11-14T11:39:59.784Z",
+      "__v": 0
+    }
+  ],
+  "admins": [
+    {
+      "_id": "6916dc3f2a2c998ef2a432df",
+      "name": "kb",
+      "email": "antibugger21@gmail.com",
+      "password": "password",
+      "role": "Admin",
+      "schoolName": "test",
+      "resetPasswordToken": null,
+      "resetTokenExpiry": null,
+      "__v": 0
+    },
+    {
+      "_id": "69170ef982265e619a028d39",
+      "name": "bob",
+      "email": "bob@gmail.com",
+      "password": "123",
+      "role": "Admin",
+      "schoolName": "test2",
+      "resetPasswordToken": null,
+      "resetTokenExpiry": null,
+      "__v": 0
+    }
+  ],
+  "complains": [],
+  "notices": [
+    {
+      "_id": "6917161882265e619a028f5b",
+      "title": "Registration date",
+      "details": "The Registartion date is jan 01-01-22025",
+      "date": "2025-11-14T00:00:00.000Z",
+      "school": "69170ef982265e619a028d39",
+      "createdAt": "2025-11-14T11:44:24.326Z",
+      "updatedAt": "2025-11-14T11:44:24.326Z",
+      "__v": 0
+    }
+  ],
+  "subjects": [
+    {
+      "_id": "6916dccb2a2c998ef2a43323",
+      "subName": "C#",
+      "subCode": "01",
+      "sessions": "01",
+      "school": "6916dc3f2a2c998ef2a432df",
+      "department": "6916dc8c2a2c998ef2a432f4",
+      "sclassName": "6916dc9c2a2c998ef2a432fd",
+      "__v": 0,
+      "createdAt": "2025-11-14T07:39:55.049Z",
+      "updatedAt": "2025-11-14T07:40:45.028Z",
+      "teacher": "6916dcfd2a2c998ef2a4333b"
+    },
+    {
+      "_id": "69170f3582265e619a028d6d",
+      "subName": "C++",
+      "subCode": "02",
+      "sessions": "02",
+      "school": "69170ef982265e619a028d39",
+      "department": "69170f1182265e619a028d4e",
+      "sclassName": "69170f1e82265e619a028d57",
+      "__v": 0,
+      "createdAt": "2025-11-14T11:15:01.938Z",
+      "updatedAt": "2025-11-14T11:15:50.101Z",
+      "teacher": "69170f6682265e619a028d8f"
+    },
+    {
+      "_id": "6917146b82265e619a028e0c",
+      "subName": "react",
+      "subCode": "01",
+      "sessions": "01",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917143f82265e619a028dd1",
+      "sclassName": "6917145582265e619a028df0",
+      "__v": 0,
+      "createdAt": "2025-11-14T11:37:15.188Z",
+      "updatedAt": "2025-11-14T11:38:00.956Z",
+      "teacher": "6917149882265e619a028e2c"
+    },
+    {
+      "_id": "6917154d82265e619a028ee4",
+      "subName": "java",
+      "subCode": "03",
+      "sessions": "01",
+      "school": "69170ef982265e619a028d39",
+      "department": "6917150282265e619a028eb4",
+      "sclassName": "6917150f82265e619a028ec5",
+      "__v": 0,
+      "createdAt": "2025-11-14T11:41:01.024Z",
+      "updatedAt": "2025-11-14T11:42:10.189Z",
+      "teacher": "6917159282265e619a028f27"
+    }
+  ]
+}

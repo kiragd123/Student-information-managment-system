@@ -23,9 +23,15 @@ const teacherSchema = new mongoose.Schema({
         ref: 'admin',
         required: true,
     },
+      department: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'department',
+            required: true,
+        },
     teachSubject: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'subject',
+        required: true,
     },
     teachSclass: {
         type: mongoose.Schema.Types.ObjectId,
@@ -46,4 +52,4 @@ const teacherSchema = new mongoose.Schema({
     }]
 }, { timestamps: true });
 
-module.exports = mongoose.model("teacher", teacherSchema)
+module.exports = mongoose.model("Teacher", teacherSchema)

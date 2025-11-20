@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { getUserDetails } from '../../../redux/userRelated/userHandle';
 import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { updateStudentFields } from '../../../redux/studentRelated/studentHandle';
@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 
 const StudentExamMarks = ({ situation }) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { currentUser, userDetails, loading } = useSelector((state) => state.user);
     const { subjectsList } = useSelector((state) => state.sclass);
@@ -30,6 +31,9 @@ const StudentExamMarks = ({ situation }) => {
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
 
+    const classID = currentUser.teachSclass?._id
+    const subjectID = currentUser.teachSubject?._id
+  
     useEffect(() => {
         if (situation === "Student") {
             setStudentID(params.id);
@@ -38,9 +42,14 @@ const StudentExamMarks = ({ situation }) => {
         }
         else if (situation === "Subject") {
             const { studentID, subjectID } = params
+            console.log('subject',subjectID);
+            
+            console.log(studentID, subjectID);
             setStudentID(studentID);
             dispatch(getUserDetails(studentID, "Student"));
             setChosenSubName(subjectID);
+            const selected = subjectsList.find(s => s._id === subjectID);
+            if (selected) setSubjectName(selected.subName);
         }
     }, [situation]);
 
@@ -57,8 +66,14 @@ const StudentExamMarks = ({ situation }) => {
         setSubjectName(selectedSubject.subName);
         setChosenSubName(selectedSubject._id);
     }
-
-    const fields = { subName: chosenSubName, marksObtained }
+    let fields = {};
+    if(situation==='Student'){
+        fields = { subName: chosenSubName, marksObtained }
+    }
+    else{
+    fields = { subName: subjectID, marksObtained }
+    }
+   
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -67,10 +82,11 @@ const StudentExamMarks = ({ situation }) => {
     }
 
     useEffect(() => {
-        if (response) {
+        if (response ) {
             setLoader(false)
             setShowPopup(true)
             setMessage(response)
+            navigate("/Admin/students/student/" + studentID)
         }
         else if (error) {
             setLoader(false)
@@ -81,8 +97,15 @@ const StudentExamMarks = ({ situation }) => {
             setLoader(false)
             setShowPopup(true)
             setMessage("Done Successfully")
+            navigate("/Admin/students/student/" + studentID)
         }
     }, [response, statestatus, error])
+
+    useEffect(() => {
+        setSubjectName("");
+        setChosenSubName("");        
+    }, [studentID]);
+
 
     return (
         <>
@@ -115,7 +138,7 @@ const StudentExamMarks = ({ situation }) => {
                                 </Typography>
                                 {currentUser.teachSubject &&
                                     <Typography variant="h4">
-                                        Subject Name: {currentUser.teachSubject?.subName}
+                                        Course Name: {currentUser.teachSubject?.subName}
                                     </Typography>
                                 }
                             </Stack>
@@ -125,7 +148,7 @@ const StudentExamMarks = ({ situation }) => {
                                         situation === "Student" &&
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">
-                                                Select Subject
+                                                Select Course
                                             </InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
@@ -141,8 +164,8 @@ const StudentExamMarks = ({ situation }) => {
                                                         </MenuItem>
                                                     ))
                                                     :
-                                                    <MenuItem value="Select Subject">
-                                                        Add Subjects For Marks
+                                                    <MenuItem value="Select Course">
+                                                        Add Course For Marks
                                                     </MenuItem>
                                                 }
                                             </Select>

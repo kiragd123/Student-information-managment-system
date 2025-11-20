@@ -13,8 +13,10 @@ import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
+import axios from 'axios'
 
 const ShowTeachers = () => {
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -22,7 +24,7 @@ const ShowTeachers = () => {
     const dispatch = useDispatch();
     const { teachersList, loading, error, response } = useSelector((state) => state.teacher);
     const { currentUser } = useSelector((state) => state.user);
-
+    console.log('teachersList', teachersList)
     useEffect(() => {
         dispatch(getAllTeachers(currentUser._id));
     }, [currentUser._id, dispatch]);
@@ -44,21 +46,32 @@ const ShowTeachers = () => {
         console.log(error);
     }
 
-    const deleteHandler = (deleteID, address) => {
+    const deleteHandler = async (deleteID, address) => {
+        const API = 'http://localhost:5000';
         console.log(deleteID);
         console.log(address);
-        setMessage("Sorry the delete function has been disabled for now.")
-        setShowPopup(true)
-
-        // dispatch(deleteUser(deleteID, address)).then(() => {
-        //     dispatch(getAllTeachers(currentUser._id));
-        // });
+        try {
+            const response = await axios.delete(`${API}/${address}/${deleteID}`);
+            if (response.status === 200) {
+                setMessage("Deleted successfully");
+                setShowPopup(true);
+                dispatch(getAllTeachers(currentUser._id));
+            } else {
+                setMessage("Failed to delete. Please try again.");
+                setShowPopup(true);
+            }
+        } catch (error) {
+            console.log(error);
+            setMessage("Sorry the delete function has been disabled for now.");
+            setShowPopup(true);
+        }
     };
 
     const columns = [
         { id: 'name', label: 'Name', minWidth: 170 },
         { id: 'teachSubject', label: 'Subject', minWidth: 100 },
-        { id: 'teachSclass', label: 'Class', minWidth: 170 },
+        { id: 'teachSclass', label: 'Class Name', minWidth: 170 },
+        { id: 'department', label: 'Department', minWidth: 170 }
     ];
 
     const rows = teachersList.map((teacher) => {
@@ -66,21 +79,12 @@ const ShowTeachers = () => {
             name: teacher.name,
             teachSubject: teacher.teachSubject?.subName || null,
             teachSclass: teacher.teachSclass.sclassName,
+            department: teacher.department?.departmentName || "N/A",
             teachSclassID: teacher.teachSclass._id,
             id: teacher._id,
         };
     });
 
-    const actions = [
-        {
-            icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Teacher',
-            action: () => navigate("/Admin/teachers/chooseclass")
-        },
-        {
-            icon: <PersonRemoveIcon color="error" />, name: 'Delete All Teachers',
-            action: () => deleteHandler(currentUser._id, "Teachers")
-        },
-    ];
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -120,7 +124,7 @@ const ShowTeachers = () => {
                                                                 onClick={() => {
                                                                     navigate(`/Admin/teachers/choosesubject/${row.teachSclassID}/${row.id}`)
                                                                 }}>
-                                                                Add Subject
+                                                                Add Course
                                                             </Button>
                                                         )}
                                                     </StyledTableCell>
@@ -159,8 +163,6 @@ const ShowTeachers = () => {
                     setPage(0);
                 }}
             />
-
-            <SpeedDialTemplate actions={actions} />
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </Paper >
     );

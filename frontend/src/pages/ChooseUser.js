@@ -63,7 +63,6 @@ const ChooseUser = ({ visitor }) => {
       }
     }
   }
-
   useEffect(() => {
     if (status === 'success' || currentUser !== null) {
       if (currentRole === 'Admin') {
@@ -83,13 +82,13 @@ const ChooseUser = ({ visitor }) => {
   }, [status, currentRole, navigate, currentUser]);
 
   return (
-    <StyledContainer>
+    <StyledContainer color='white'>
       <Container>
         <Grid container spacing={2} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
             <div onClick={() => navigateHandler("Admin")}>
               <StyledPaper elevation={3}>
-                <Box mb={2}>
+                <Box mb={6}>
                   <AccountCircle fontSize="large" />
                 </Box>
                 <StyledTypography>
@@ -102,7 +101,7 @@ const ChooseUser = ({ visitor }) => {
           <Grid item xs={12} sm={6} md={4}>
             <StyledPaper elevation={3}>
               <div onClick={() => navigateHandler("Student")}>
-                <Box mb={2}>
+                <Box mb={6}>
                   <School fontSize="large" />
                 </Box>
                 <StyledTypography>
@@ -115,7 +114,7 @@ const ChooseUser = ({ visitor }) => {
           <Grid item xs={12} sm={6} md={4}>
             <StyledPaper elevation={3}>
               <div onClick={() => navigateHandler("Teacher")}>
-                <Box mb={2}>
+                <Box mb={6}>
                   <Group fontSize="large" />
                 </Box>
                 <StyledTypography>
@@ -125,6 +124,7 @@ const ChooseUser = ({ visitor }) => {
               </div>
             </StyledPaper>
           </Grid>
+
         </Grid>
       </Container>
       <Backdrop
@@ -142,26 +142,32 @@ const ChooseUser = ({ visitor }) => {
 export default ChooseUser;
 
 const StyledContainer = styled.div`
-  background: linear-gradient(to bottom, #411d70, #19118b);
-  height: 120vh;
+  background: #e8e6f8ff;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 2rem;
 `;
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
   text-align: center;
-  background-color: #1f1f38;
-  color:rgba(255, 255, 255, 0.6);
-  cursor:pointer;
+  background-color: #1d1f20ff;
+  color: #f1ecf3ff;
+  cursor: pointer;
+  border: 1px solid #afa1afff;
+  transition: all 0.5s ease;
 
   &:hover {
-    background-color: #2c2c6c;
-    color:white;
+    background-color: #44474bff;
+    color: #d1daebff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
   }
 `;
 
 const StyledTypography = styled.h2`
   margin-bottom: 10px;
+  color: #000000;
 `;

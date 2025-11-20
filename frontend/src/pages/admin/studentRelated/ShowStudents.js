@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { getAllStudents } from '../../../redux/studentRelated/studentHandle';
+import { resetStudentState } from '../../../redux/studentRelated/studentSlice';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import {
     Paper, Box, IconButton
@@ -23,6 +24,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Popup from '../../../components/Popup';
+import axios from 'axios';
 
 const ShowStudents = () => {
 
@@ -30,11 +32,19 @@ const ShowStudents = () => {
     const dispatch = useDispatch();
     const { studentsList, loading, error, response } = useSelector((state) => state.student);
     const { currentUser } = useSelector(state => state.user)
-
+console.log('studentList',studentsList)
     useEffect(() => {
         dispatch(getAllStudents(currentUser._id));
     }, [currentUser._id, dispatch]);
 
+    //new useeffect 
+    useEffect(() => {
+        dispatch({ type: 'RESET_STUDENT_RESPONSE' }); // You’ll need to define this action
+    }, []);
+
+    useEffect(() => {
+        dispatch(resetStudentState());
+    }, [dispatch]);
     if (error) {
         console.log(error);
     }
@@ -42,32 +52,36 @@ const ShowStudents = () => {
     const [showPopup, setShowPopup] = React.useState(false);
     const [message, setMessage] = React.useState("");
 
-    const deleteHandler = (deleteID, address) => {
-        console.log(deleteID);
-        console.log(address);
-        setMessage("Sorry the delete function has been disabled for now.")
-        setShowPopup(true)
-
-        // dispatch(deleteUser(deleteID, address))
-        //     .then(() => {
-        //         dispatch(getAllStudents(currentUser._id));
-        //     })
+    const deleteHandler = async (deleteID, address) => {
+        const API = 'http://localhost:5000';
+        try {
+            await axios.delete(`${API}/${address}/${deleteID}`);
+            setMessage("Deleted Successfully");
+            setShowPopup(true);
+            dispatch(getAllStudents(currentUser._id));
+        } catch (error) {
+            console.log(error);
+            setMessage("Sorry the delete function has been disabled for now.");
+            setShowPopup(true);
+        }
     }
 
     const studentColumns = [
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
-        { id: 'sclassName', label: 'Class', minWidth: 170 },
-    ]
+        { id: 'rollNum', label: 'Roll Number', minWidth: 170 },
+        { id: 'department', label: 'Department Name', minWidth: 170 },
+        { id: 'sclassName', label: 'Class Name', minWidth: 170 }, // ✅ fixed key name
+    ];
 
-    const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => {
-        return {
-            name: student.name,
-            rollNum: student.rollNum,
-            sclassName: student.sclassName.sclassName,
-            id: student._id,
-        };
-    })
+
+    const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => ({
+        id: student._id, // ✅ important if TableTemplate expects `id`
+        name: student.name,
+        rollNum: student.rollNum,
+        department: student?.department?.departmentName || 'N/A',
+        sclassName: student?.sclassName?.sclassName || 'N/A',
+    }));
+
 
     const StudentButtonHaver = ({ row }) => {
         const options = ['Take Attendance', 'Provide Marks'];
@@ -80,6 +94,7 @@ const ShowStudents = () => {
             console.info(`You clicked ${options[selectedIndex]}`);
             if (selectedIndex === 0) {
                 handleAttendance();
+
             } else if (selectedIndex === 1) {
                 handleMarks();
             }
@@ -87,6 +102,8 @@ const ShowStudents = () => {
 
         const handleAttendance = () => {
             navigate("/Admin/students/student/attendance/" + row.id)
+            console.log(row.id);
+            console.log("Attendance");
         }
         const handleMarks = () => {
             navigate("/Admin/students/student/marks/" + row.id)
@@ -173,16 +190,6 @@ const ShowStudents = () => {
         );
     };
 
-    const actions = [
-        {
-            icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Student',
-            action: () => navigate("/Admin/addstudents")
-        },
-        {
-            icon: <PersonRemoveIcon color="error" />, name: 'Delete All Students',
-            action: () => deleteHandler(currentUser._id, "Students")
-        },
-    ];
 
     return (
         <>
@@ -201,7 +208,6 @@ const ShowStudents = () => {
                             {Array.isArray(studentsList) && studentsList.length > 0 &&
                                 <TableTemplate buttonHaver={StudentButtonHaver} columns={studentColumns} rows={studentRows} />
                             }
-                            <SpeedDialTemplate actions={actions} />
                         </Paper>
                     }
                 </>

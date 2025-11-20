@@ -41,7 +41,14 @@ const studentSlice = createSlice({
             state.response = null;
             state.error = null;
             state.statestatus = "idle";
+        },
+        //new reducer
+        resetStudentState: (state) => {
+            state.response = null;
+            state.error = null;
+            state.statestatus = "idle";
         }
+
     },
 });
 
@@ -52,6 +59,7 @@ export const {
     getError,
     underStudentControl,
     stuffDone,
+    resetStudentState,
 } = studentSlice.actions;
 
 export const studentReducer = studentSlice.reducer;

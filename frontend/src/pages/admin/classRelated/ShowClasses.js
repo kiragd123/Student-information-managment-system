@@ -15,14 +15,15 @@ import AddCardIcon from '@mui/icons-material/AddCard';
 import styled from 'styled-components';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
+import axios from 'axios';
 
 const ShowClasses = () => {
+  const API ='http://localhost:5000';
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
   const { sclassesList, loading, error, getresponse } = useSelector((state) => state.sclass);
   const { currentUser } = useSelector(state => state.user)
-
   const adminID = currentUser._id
 
   useEffect(() => {
@@ -36,31 +37,42 @@ const ShowClasses = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
-  const deleteHandler = (deleteID, address) => {
-    console.log(deleteID);
-    console.log(address);
-    setMessage("Sorry the delete function has been disabled for now.")
-    setShowPopup(true)
-    // dispatch(deleteUser(deleteID, address))
-    //   .then(() => {
-    //     dispatch(getAllSclasses(adminID, "Sclass"));
-    //   })
+  const deleteHandler = async(deleteID, address) => {
+   
+    const url = `${API}/Sclass/${deleteID}`;
+    if(!url) return;
+    
+    await axios.delete(url)
+    .then((res) => {
+      console.log(res.data);
+      setMessage("Deleted Successfully");
+      setShowPopup(true);
+      dispatch(getAllSclasses(adminID, "Sclass"));
+    })
+    .catch((err) => {
+      console.log(err);
+      setMessage("Sorry the delete function has been disabled for now.");
+      setShowPopup(true);
+    });
+
   }
 
   const sclassColumns = [
     { id: 'name', label: 'Class Name', minWidth: 170 },
+    {id:'department',label:'Department Name',minWidth:170}
   ]
 
   const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
     return {
       name: sclass.sclassName,
       id: sclass._id,
+      department: sclass.department?.departmentName || "Unknown Department"
     };
   })
 
   const SclassButtonHaver = ({ row }) => {
     const actions = [
-      { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
+      { icon: <PostAddIcon />, name: 'Add Courses', action: () => navigate("/Admin/addsubject/" + row.id) },
       { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
     ];
     return (
@@ -72,75 +84,10 @@ const ShowClasses = () => {
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           View
         </BlueButton>
-        <ActionMenu actions={actions} />
       </ButtonContainer>
     );
   };
 
-  const ActionMenu = ({ actions }) => {
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    return (
-      <>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-          <Tooltip title="Add Students & Subjects">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={open ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-            >
-              <h5>Add</h5>
-              <SpeedDialIcon />
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Menu
-          anchorEl={anchorEl}
-          id="account-menu"
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          PaperProps={{
-            elevation: 0,
-            sx: styles.styledPaper,
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          {actions.map((action) => (
-            <MenuItem onClick={action.action}>
-              <ListItemIcon fontSize="small">
-                {action.icon}
-              </ListItemIcon>
-              {action.name}
-            </MenuItem>
-          ))}
-        </Menu>
-      </>
-    );
-  }
-
-  const actions = [
-    {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Class',
-      action: () => navigate("/Admin/addclass")
-    },
-    {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Classes',
-      action: () => deleteHandler(adminID, "Sclasses")
-    },
-  ];
 
   return (
     <>
@@ -159,7 +106,6 @@ const ShowClasses = () => {
               {Array.isArray(sclassesList) && sclassesList.length > 0 &&
                 <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
               }
-              <SpeedDialTemplate actions={actions} />
             </>}
         </>
       }

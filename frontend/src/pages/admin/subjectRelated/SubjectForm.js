@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, TextField, Grid, Box, Typography, CircularProgress } from "@mui/material";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
@@ -12,11 +12,21 @@ const SubjectForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
+    const location = useLocation();
+
+    // If adding via department
+
+    const departmentId = params.id;           // from route /addsubject/:id  // from query param ?sclassId=xxxx
+    
+    const searchParams = new URLSearchParams(location.search);
+    const sclassId = searchParams.get("sclassId");
 
     const userState = useSelector(state => state.user);
     const { status, currentUser, response, error } = userState;
 
-    const sclassName = params.id
+    // const sclassID = params.id || null; // previous class-based param
+    // const departmentID = params.departmentID || null;
+    //console.log('class',sclassName)
     const adminID = currentUser._id
     const address = "Subject"
 
@@ -53,7 +63,8 @@ const SubjectForm = () => {
     };
 
     const fields = {
-        sclassName,
+        department: departmentId,
+        sclassName: sclassId,
         subjects: subjects.map((subject) => ({
             subName: subject.subName,
             subCode: subject.subCode,
@@ -89,7 +100,7 @@ const SubjectForm = () => {
     return (
         <form onSubmit={submitHandler}>
             <Box mb={2}>
-                <Typography variant="h6" >Add Subjects</Typography>
+                <Typography variant="h6" >Add Courses</Typography>
             </Box>
             <Grid container spacing={2}>
                 {subjects.map((subject, index) => (
@@ -97,7 +108,7 @@ const SubjectForm = () => {
                         <Grid item xs={6}>
                             <TextField
                                 fullWidth
-                                label="Subject Name"
+                                label="Course Name"
                                 variant="outlined"
                                 value={subject.subName}
                                 onChange={handleSubjectNameChange(index)}
@@ -108,7 +119,7 @@ const SubjectForm = () => {
                         <Grid item xs={4}>
                             <TextField
                                 fullWidth
-                                label="Subject Code"
+                                label="Course Code"
                                 variant="outlined"
                                 value={subject.subCode}
                                 onChange={handleSubjectCodeChange(index)}
@@ -137,7 +148,7 @@ const SubjectForm = () => {
                                         color="primary"
                                         onClick={handleAddSubject}
                                     >
-                                        Add Subject
+                                        Add Course
                                     </Button>
                                 ) : (
                                     <Button

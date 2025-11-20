@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,useLocation } from 'react-router-dom';
 import { getSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
 import Popup from '../../../components/Popup';
 import { registerUser } from '../../../redux/userRelated/userHandle';
@@ -12,14 +12,22 @@ const AddTeacher = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const subjectID = params.id
 
-  const { status, response, error } = useSelector(state => state.user);
+  const { sclassId, departmentID, subjectId } = useParams();
+
+  //const subjectID = subjectId; // or whichever ID is actually the subject
+
+  const { status, response, error,currentUser } = useSelector(state => state.user);
   const { subjectDetails } = useSelector((state) => state.sclass);
 
+ // console.log('subjectDetails',subjectDetails)
+
   useEffect(() => {
-    dispatch(getSubjectDetails(subjectID, "Subject"));
-  }, [dispatch, subjectID]);
+    if (subjectId) {
+      dispatch(getSubjectDetails(subjectId, 'Subject'));
+    }
+  }, [dispatch, subjectId]);
+
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,17 +38,26 @@ const AddTeacher = () => {
   const [loader, setLoader] = useState(false)
 
   const role = "Teacher"
-  const school = subjectDetails && subjectDetails.school
-  const teachSubject = subjectDetails && subjectDetails._id
-  const teachSclass = subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName._id
+  const school = currentUser && currentUser._id
+  const teachSubject = subjectDetails._id|| subjectId
+  const teachSclass = subjectDetails?.sclassName?._id || sclassId
+  //console.log('subject',teachSubject)
 
-  const fields = { name, email, password, role, school, teachSubject, teachSclass }
+
+  const fields = { name, email, password, role, school, teachSubject, teachSclass, department:departmentID };
 
   const submitHandler = (event) => {
-    event.preventDefault()
-    setLoader(true)
-    dispatch(registerUser(fields, role))
-  }
+    event.preventDefault();
+
+    if (!teachSclass) {
+      setMessage("Cannot add teacher: Class ID is missing!");
+      setShowPopup(true);
+      return;
+    }
+
+    setLoader(true);
+    dispatch(registerUser(fields, role));
+  };
 
   useEffect(() => {
     if (status === 'added') {
@@ -65,12 +82,7 @@ const AddTeacher = () => {
         <form className="registerForm" onSubmit={submitHandler}>
           <span className="registerTitle">Add Teacher</span>
           <br />
-          <label>
-            Subject : {subjectDetails && subjectDetails.subName}
-          </label>
-          <label>
-            Class : {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
-          </label>
+          
           <label>Name</label>
           <input className="registerInput" type="text" placeholder="Enter teacher's name..."
             value={name}

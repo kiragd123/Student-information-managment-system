@@ -13,19 +13,26 @@ const subjectSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    sclassName: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'sclass',
-        required: true,
-    },
     school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'admin'
     },
+   department: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'department',
+            required: true,
+        },
     teacher: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'teacher',
-    }
+        ref: 'Teacher',
+        
+    },
+       sclassName: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'sclass',
+            required: true,
+        },
+        
 }, { timestamps: true });
 
 module.exports = mongoose.model("subject", subjectSchema);

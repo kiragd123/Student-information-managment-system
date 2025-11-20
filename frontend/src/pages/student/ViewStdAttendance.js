@@ -139,13 +139,6 @@ const ViewStdAttendance = () => {
         )
     }
 
-    const renderChartSection = () => {
-        return (
-            <>
-                <CustomBarChart chartData={subjectData} dataKey="attendancePercentage" />
-            </>
-        )
-    };
 
     return (
         <>
@@ -157,8 +150,7 @@ const ViewStdAttendance = () => {
                 <div>
                     {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 ?
                         <>
-                            {selectedSection === 'table' && renderTableSection()}
-                            {selectedSection === 'chart' && renderChartSection()}
+                            {selectedSection === 'table' && renderTableSection()}                       
 
                             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                                 <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
@@ -166,11 +158,6 @@ const ViewStdAttendance = () => {
                                         label="Table"
                                         value="table"
                                         icon={selectedSection === 'table' ? <TableChartIcon /> : <TableChartOutlinedIcon />}
-                                    />
-                                    <BottomNavigationAction
-                                        label="Chart"
-                                        value="chart"
-                                        icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                     />
                                 </BottomNavigation>
                             </Paper>

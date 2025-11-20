@@ -11,6 +11,7 @@ const studentRegister = async (req, res) => {
             rollNum: req.body.rollNum,
             school: req.body.adminID,
             sclassName: req.body.sclassName,
+            department: req.body.department
         });
 
         if (existingStudent) {
@@ -58,19 +59,24 @@ const studentLogIn = async (req, res) => {
 
 const getStudents = async (req, res) => {
     try {
-        let students = await Student.find({ school: req.params.id }).populate("sclassName", "sclassName");
+        const students = await Student.find({ school: req.params.departmentID })
+            .populate({ path: "department", select: "departmentName" })
+            .populate({ path: "sclassName", select: "sclassName" });
         if (students.length > 0) {
-            let modifiedStudents = students.map((student) => {
-                return { ...student._doc, password: undefined };
-            });
+            const modifiedStudents = students.map(student => ({
+                ...student._doc,
+                password: undefined,
+            }));
             res.send(modifiedStudents);
         } else {
             res.send({ message: "No students found" });
         }
     } catch (err) {
-        res.status(500).json(err);
+        console.error(err);
+        res.status(500).json({ message: "Internal server error", error: err.message });
     }
 };
+
 
 const getStudentDetail = async (req, res) => {
     try {
@@ -99,6 +105,14 @@ const deleteStudent = async (req, res) => {
         res.status(500).json(err);
     }
 }
+const deleteClass = async (req, res) => {
+    try {
+        const result = await sClass.findByIdAndDelete(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500).json(err);
+    }
+}
 
 const deleteStudents = async (req, res) => {
     try {
@@ -115,7 +129,7 @@ const deleteStudents = async (req, res) => {
 
 const deleteStudentsByClass = async (req, res) => {
     try {
-        const result = await Student.deleteMany({ sclassName: req.params.id })
+        const result = await Student.deleteMany({ _id: req.params.id })
         if (result.deletedCount === 0) {
             res.send({ message: "No students found to delete" })
         } else {
@@ -146,8 +160,19 @@ const updateStudent = async (req, res) => {
 const updateExamResult = async (req, res) => {
     const { subName, marksObtained } = req.body;
 
+
     try {
         const student = await Student.findById(req.params.id);
+        //console.log(typeof(marksObtained));
+        
+        if (typeof marksObtained !== 'string' || marksObtained < 0 || marksObtained > 100) {
+            return res.status(400).send({ message: 'Invalid marks value' });
+        }
+        //console.log(subName);
+        if (!subName) {
+            return res.status(400).send({ message: 'Subject ID is required' });
+        }
+       
 
         if (!student) {
             return res.send({ message: 'Student not found' });

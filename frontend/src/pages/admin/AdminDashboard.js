@@ -42,6 +42,12 @@ import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
 
+import Maintenance from './systemManagment/maintenance';
+import Recovery from './systemManagment/recovery';
+import Backup from './systemManagment/backup';
+import AddDepartment from './departmentRelated/AddDepartment';
+import ShowDepartments from './departmentRelated/ShowDepartment';
+
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
@@ -109,6 +115,7 @@ const AdminDashboard = () => {
 
                         <Route path="/Admin/addsubject/:id" element={<SubjectForm />} />
                         <Route path="/Admin/class/subject/:classID/:subjectID" element={<ViewSubject />} />
+                        <Route path="/Admin/class/addstudents/:sclassID/:departmentID" element={<SubjectForm situation="Class" />} />
 
                         <Route path="/Admin/subject/student/attendance/:studentID/:subjectID" element={<StudentAttendance situation="Subject" />} />
                         <Route path="/Admin/subject/student/marks/:studentID/:subjectID" element={<StudentExamMarks situation="Subject" />} />
@@ -117,10 +124,26 @@ const AdminDashboard = () => {
                         <Route path="/Admin/addclass" element={<AddClass />} />
                         <Route path="/Admin/classes" element={<ShowClasses />} />
                         <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
-                        <Route path="/Admin/class/addstudents/:id" element={<AddStudent situation="Class" />} />
+                        {/* <Route path="/Admin/class/addstudents/:id" element={<AddStudent situation="Class" />} /> */}
+
+                        {/* department */}
+                        <Route path="/Admin/addDepartment" element={<AddDepartment />} />
+                        <Route path="/Admin/departments" element={<ShowDepartments />} />                   
+                        <Route path="/Admin/addclass/:departmentID" element={<AddClass />} />
+                        <Route path="/Admin/class/addstudents/:sclassID/:departmentID" element={<AddStudent situation="Class" />}
+                        />
+
+
+
+                        <Route path="/Admin/addsubject/:departmentID" element={<SubjectForm situation="Department" />} />
+                        <Route path="/Admin/addsubject/department/:departmentID" element={<SubjectForm />} />
+
+
+                        <Route path="/Admin/departments/adddepartment" element={<div>Add Department Page Coming Soon</div>} />
 
                         {/* Student */}
                         <Route path="/Admin/addstudents" element={<AddStudent situation="Student" />} />
+                        <Route path="/Admin/class/addstudents/:departmentID" element={<AddStudent/>} />
                         <Route path="/Admin/students" element={<ShowStudents />} />
                         <Route path="/Admin/students/student/:id" element={<ViewStudent />} />
                         <Route path="/Admin/students/student/attendance/:id" element={<StudentAttendance situation="Student" />} />
@@ -128,11 +151,17 @@ const AdminDashboard = () => {
 
                         {/* Teacher */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
-                        <Route path="/Admin/teachers/teacher/:id" element={<TeacherDetails />} />
+                        <Route path="/Admin/teachers/teacher/:departmentID" element={<TeacherDetails />} />
                         <Route path="/Admin/teachers/chooseclass" element={<ChooseClass situation="Teacher" />} />
                         <Route path="/Admin/teachers/choosesubject/:id" element={<ChooseSubject situation="Norm" />} />
                         <Route path="/Admin/teachers/choosesubject/:classID/:teacherID" element={<ChooseSubject situation="Teacher" />} />
-                        <Route path="/Admin/teachers/addteacher/:id" element={<AddTeacher />} />
+                        <Route path="/Admin/teachers/addTeacher/:sclassId/:departmentID/:subjectId" element={<AddTeacher  />} />
+                        
+
+                        {/* System Management */}
+                        <Route path="/Admin/systemManagement/maintenance" element={<Maintenance />} />
+                        <Route path="/Admin/systemManagement/backup" element={<Backup />} />
+                        <Route path="/Admin/systemManagement/recovery" element={<Recovery />} />
 
                         <Route path="/logout" element={<Logout />} />
                     </Routes>

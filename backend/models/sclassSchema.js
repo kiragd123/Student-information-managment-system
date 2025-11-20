@@ -9,6 +9,11 @@ const sclassSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'admin'
     },
+    department: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'department',
+        required: true,
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model("sclass", sclassSchema);

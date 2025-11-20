@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Box, Typography, Paper, Checkbox, FormControlLabel, TextField, CssBaseline, IconButton, InputAdornment, CircularProgress, Backdrop } from '@mui/material';
+import { Button, Grid, Box, Typography, Paper, Checkbox, FormControlLabel, TextField, CssBaseline, IconButton, InputAdornment, CircularProgress, Backdrop, DialogTitle } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff,Email } from '@mui/icons-material'
+
+import {DialogContent,DialogActions,Alert,Dialog}from '@mui/material';
 import bgpic from "../assets/designlogin.jpg"
 import { LightPurpleButton } from '../components/buttonStyles';
 import styled from 'styled-components';
 import { loginUser } from '../redux/userRelated/userHandle';
 import Popup from '../components/Popup';
+import ForgotPass from './forgotPass';
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -17,7 +21,8 @@ const LoginPage = ({ role }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const { status, currentUser, response, error, currentRole } = useSelector(state => state.user);;
+    const { status, currentUser, response, error, currentRole } = useSelector(state => state.user);
+    console.log("Current Role:", currentRole, "Current User:", currentUser, "Status:", status);
 
     const [toggle, setToggle] = useState(false)
     const [guestLoader, setGuestLoader] = useState(false)
@@ -29,6 +34,16 @@ const LoginPage = ({ role }) => {
     const [passwordError, setPasswordError] = useState(false);
     const [rollNumberError, setRollNumberError] = useState(false);
     const [studentNameError, setStudentNameError] = useState(false);
+
+    // Forgot Password State
+    const [forgotOpen, setForgotOpen] = useState(false);
+    const [forgotEmail, setForgotEmail] = useState('');
+    const [forgotEmailError, setForgotEmailError] = useState(false);
+    const [forgotLoader, setForgotLoader] = useState(false);
+    const [forgotSuccess, setForgotSuccess] = useState(false);
+    const [forgotError, setForgotError] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -44,7 +59,7 @@ const LoginPage = ({ role }) => {
                 if (!password) setPasswordError(true);
                 return;
             }
-            const fields = { rollNum, studentName, password }
+            const fields = { rollNum, studentName, password, rememberMe }
             setLoader(true)
             dispatch(loginUser(fields, role))
         }
@@ -73,29 +88,56 @@ const LoginPage = ({ role }) => {
         if (name === 'studentName') setStudentNameError(false);
     };
 
-    const guestModeHandler = () => {
-        const password = "zxc"
+    const handleForgotPassword = async () => {
+        if (!forgotEmail) {
+            setForgotEmailError(true);
+            return;
+        }
 
-        if (role === "Admin") {
-            const email = "yogendra@12"
-            const fields = { email, password }
-            setGuestLoader(true)
-            dispatch(loginUser(fields, role))
+        if (!/\S+@\S+\.\S+/.test(forgotEmail)) {
+            setMessage("Please enter a valid email address");
+            setShowPopup(true);
+            return;
         }
-        else if (role === "Student") {
-            const rollNum = "1"
-            const studentName = "Dipesh Awasthi"
-            const fields = { rollNum, studentName, password }
-            setGuestLoader(true)
-            dispatch(loginUser(fields, role))
+        setForgotLoader(true);
+        setForgotError('');
+
+
+        try {
+            const API = 'http://localhost:5000';
+            const response = await axios.post(`${API}/forgot-password`, {
+                email: forgotEmail
+            });
+
+            if (response.status === 200) {
+                setForgotSuccess(true);
+                setMessage('Password reset link sent to your email!');
+
+                // Auto-close after success
+                setTimeout(() => {
+                    setForgotOpen(false);
+                    setForgotSuccess(false);
+                    setForgotEmail('');
+                }, 3000);
+            }
+        } catch (error) {
+            console.error('Forgot password error:', error);
+            if (error.response && error.response.data) {
+                setForgotError(error.response.data.message || 'Failed to send reset link');
+            } else {
+                setForgotError('Network error. Please try again.');
+            }
+        } finally {
+            setForgotLoader(false);
         }
-        else if (role === "Teacher") {
-            const email = "tony@12"
-            const fields = { email, password }
-            setGuestLoader(true)
-            dispatch(loginUser(fields, role))
-        }
-    }
+    };
+
+    const handleCloseForgot = () => {
+        setForgotOpen(false);
+        setForgotEmail('');
+        setForgotEmailError(false);
+        setForgotSuccess(false);
+    };
 
     useEffect(() => {
         if (status === 'success' || currentUser !== null) {
@@ -106,7 +148,7 @@ const LoginPage = ({ role }) => {
                 navigate('/Student/dashboard');
             } else if (currentRole === 'Teacher') {
                 navigate('/Teacher/dashboard');
-            }
+            } 
         }
         else if (status === 'failed') {
             setMessage(response)
@@ -215,12 +257,13 @@ const LoginPage = ({ role }) => {
                             />
                             <Grid container sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
+                                    control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} color="primary" />}
                                     label="Remember me"
                                 />
-                                <StyledLink href="#">
+                                <StyledLink onClick={() => setForgotOpen(true)} style={{ cursor: "pointer" }}>
                                     Forgot password?
                                 </StyledLink>
+
                             </Grid>
                             <LightPurpleButton
                                 type="submit"
@@ -231,17 +274,9 @@ const LoginPage = ({ role }) => {
                                 {loader ?
                                     <CircularProgress size={24} color="inherit" />
                                     : "Login"}
-                            </LightPurpleButton>
-                            <Button
-                                fullWidth
-                                onClick={guestModeHandler}
-                                variant="outlined"
-                                sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
-                            >
-                                Login as Guest
-                            </Button>
+                            </LightPurpleButton>               
                             {role === "Admin" &&
-                                <Grid container>
+                                <Grid container sx={{marginTop:5}}>
                                     <Grid>
                                         Don't have an account?
                                     </Grid>
@@ -277,9 +312,97 @@ const LoginPage = ({ role }) => {
                 <CircularProgress color="primary" />
                 Please Wait
             </Backdrop>
+            {/* Forgot Password Dialog */}
+            <Dialog
+                open={forgotOpen}
+                onClose={handleCloseForgot}
+                maxWidth="sm"
+                fullWidth
+            >
+                <DialogTitle sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    backgroundColor: '#f8f5ff',
+                    borderBottom: '1px solid #e0e0e0'
+                }}>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#2c2143' }}>
+                        Reset Password
+                    </Typography>
+                    <IconButton onClick={handleCloseForgot} size="small"/>
+                </DialogTitle>
+
+                <DialogContent sx={{ mt: 2 }}>
+                    {forgotSuccess ? (
+                        <Alert severity="success" sx={{ mb: 2 }}>
+                            <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                                Password reset instructions sent!
+                            </Typography>
+                            <Typography variant="body2">
+                                Check your email for further instructions.
+                            </Typography>
+                        </Alert>
+                    ) : (
+                        <>
+                            <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>
+                                Enter your email address and we'll send you instructions to reset your password.
+                            </Typography>
+                            <TextField
+                                fullWidth
+                                label="Email Address"
+                                type="email"
+                                value={forgotEmail}
+                                onChange={(e) => {
+                                    setForgotEmail(e.target.value);
+                                    setForgotEmailError(false);
+                                }}
+                                error={forgotEmailError}
+                                helperText={forgotEmailError && 'Email is required'}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <Email color="action" />
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                sx={{ mb: 2 }}
+                            />
+                        </>
+                    )}
+                </DialogContent>
+
+                <DialogActions sx={{ px: 3, pb: 3 }}>
+                    {!forgotSuccess && (
+                        <>
+                            <Button onClick={handleCloseForgot} color="inherit">
+                                Cancel
+                            </Button>
+                            <lightPurpleButton
+                                onClick={handleForgotPassword}
+                                variant="contained"
+                                disabled={forgotLoader}
+                                sx={{ minWidth: 120 }}
+                            >
+                                {forgotLoader ? <CircularProgress size={24} color="inherit" /> : "Send Reset Link"}
+                            </lightPurpleButton>
+                        </>
+                    )}
+                </DialogActions>
+            </Dialog>
+
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={guestLoader}
+            >
+                <CircularProgress color="primary" />
+                <Typography sx={{ ml: 2 }}>Please Wait</Typography>
+            </Backdrop>
+
+            {/* Popup for errors */}
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </ThemeProvider>
     );
+
 }
 
 export default LoginPage

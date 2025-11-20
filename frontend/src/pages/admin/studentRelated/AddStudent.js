@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../../redux/userRelated/userHandle';
 import Popup from '../../../components/Popup';
@@ -11,27 +11,54 @@ const AddStudent = ({ situation }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const params = useParams()
+    const {departmentID,sclassId} = params;
+    console.log('departmentID',departmentID)
+    console.log('sclassId',sclassId)
 
     const userState = useSelector(state => state.user);
     const { status, currentUser, response, error } = userState;
     const { sclassesList } = useSelector((state) => state.sclass);
+    //console.log('class',sclassesList);
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const sclassIdFromQuery = searchParams.get('sclassId'); // will get the correct sclass ID
 
+    console.log('sclassIdFromQuery',sclassIdFromQuery)
+
+
+    
     const [name, setName] = useState('');
     const [rollNum, setRollNum] = useState('');
     const [password, setPassword] = useState('')
     const [className, setClassName] = useState('')
-    const [sclassName, setSclassName] = useState('')
+    const [sclassName, setSclassName] = useState(sclassIdFromQuery || '');
+
+    // useEffect(() => {
+    //     if (sclassId) setSclassName(sclassId);
+    // }, [sclassId]);
 
     const adminID = currentUser._id
     const role = "Student"
     const attendance = []
-
+    // Preselect sclass if passed via query
     useEffect(() => {
-        if (situation === "Class") {
-            setSclassName(params.id);
-        }
-    }, [params.id, situation]);
+        if (sclassIdFromQuery) setSclassName(sclassIdFromQuery);
+    }, [sclassIdFromQuery]);
 
+    // Fetch all classes
+    useEffect(() => {
+        dispatch(getAllSclasses(adminID, "Sclass"));
+    }, [adminID, dispatch]);
+
+
+    // Update className when sclassName changes
+    useEffect(() => {
+        if (sclassName) {
+            const selectedClass = sclassesList.find(c => c._id === sclassName);
+            if (selectedClass) setClassName(selectedClass.sclassName);
+        }
+    }, [sclassName, sclassesList]);
+    
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
@@ -53,7 +80,7 @@ const AddStudent = ({ situation }) => {
         }
     }
 
-    const fields = { name, rollNum, password, sclassName, adminID, role, attendance }
+    const fields = { name, rollNum, password, sclassName, adminID, role, attendance, department:departmentID};
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -70,7 +97,7 @@ const AddStudent = ({ situation }) => {
     useEffect(() => {
         if (status === 'added') {
             dispatch(underControl())
-            navigate(-1)
+            navigate("/Admin/students")
         }
         else if (status === 'failed') {
             setMessage(response)

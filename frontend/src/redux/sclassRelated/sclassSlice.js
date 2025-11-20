@@ -72,6 +72,11 @@ const sclassSlice = createSlice({
             state.subjectsList = [];
             state.sclassesList = [];
         },
+        resetSclassState: (state) => {
+            state.getresponse = null;
+            state.error = null;
+        }
+
     },
 });
 
@@ -86,7 +91,8 @@ export const {
     getFailedTwo,
     resetSubjects,
     getSubDetailsSuccess,
-    getSubDetailsRequest
+    getSubDetailsRequest,
+    resetSclassState,
 } = sclassSlice.actions;
 
 export const sclassReducer = sclassSlice.reducer;

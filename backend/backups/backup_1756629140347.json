@@ -1,0 +1,580 @@
+{
+  "students": [
+    {
+      "_id": "68a9736327c3192b406e1e59",
+      "name": "jon",
+      "rollNum": 1,
+      "password": "$2b$10$hBqKK478l2LYzeWiVP.YgeowaJF8SQ9YGRDV98UIlOW6UpqNmPUBm",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [
+        {
+          "date": "2025-08-23T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68a992b553cfafde65c98bbd",
+          "_id": "68a9a0af6d5984c338d3643b"
+        },
+        {
+          "date": "2025-08-24T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68a992b553cfafde65c98bbd",
+          "_id": "68aad3076a7c94d6f374daf6"
+        },
+        {
+          "date": "2025-08-26T00:00:00.000Z",
+          "status": "Absent",
+          "subName": "68a9a4e06d5984c338d36632",
+          "_id": "68ad9daba25d293f458d1870"
+        },
+        {
+          "date": "2025-08-30T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68b2e6cf6bf255d1862c2958",
+          "_id": "68b2e6e16bf255d1862c2989"
+        },
+        {
+          "date": "2025-08-30T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68a992b553cfafde65c98bbd",
+          "_id": "68b2e7fa6bf255d1862c2aaa"
+        },
+        {
+          "date": "2025-08-30T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68aafb1cef9f442ffd825323",
+          "_id": "68b2e9cfb3f88945947cfc6b"
+        },
+        {
+          "date": "2025-09-06T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68a992b553cfafde65c98bbd",
+          "_id": "68b2eaf56b063ccf1fbed6a4"
+        }
+      ],
+      "examResult": [
+        {
+          "subName": "68a992b553cfafde65c98bbd",
+          "marksObtained": 45,
+          "_id": "68a9a0ca6d5984c338d36461"
+        },
+        {
+          "subName": "68a9a4e06d5984c338d36632",
+          "marksObtained": 77,
+          "_id": "68aef68dfc739bdf1abbf017"
+        }
+      ],
+      "__v": 9
+    },
+    {
+      "_id": "68adaf1cfba3d2b4e3870c63",
+      "name": "LL",
+      "rollNum": 1,
+      "password": "$2b$10$yDMRNWc8ONoGafX6eKML5ugrxiW01QsulWqhP2vEuihzQJ0TTaUtS",
+      "sclassName": "68adad052d4110b73baf4552",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [],
+      "examResult": [],
+      "__v": 0
+    },
+    {
+      "_id": "68adb010578698c2638f79a3",
+      "name": "OO",
+      "rollNum": 2,
+      "password": "$2b$10$IJ99etid/xN9wvZW.xQhhuJrJ3YRX5VvUMlu9m6PBtwHo8RGX6w2u",
+      "sclassName": "68adad052d4110b73baf4552",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [],
+      "examResult": [],
+      "__v": 0
+    },
+    {
+      "_id": "68adb606af8b191b795b1d9f",
+      "name": "hh",
+      "rollNum": 3,
+      "password": "$2b$10$2PqI.iRhe7ryABuHQO7k3.B0SXi22GZdbY4q8OqibiNfQc4bPLHGi",
+      "sclassName": "68adb5d3af8b191b795b1d91",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [],
+      "examResult": [],
+      "__v": 0
+    },
+    {
+      "_id": "68aeb415ca3db354bf3a3273",
+      "name": "test",
+      "rollNum": 5,
+      "password": "$2b$10$8pDOn6nzs2CL4f241BV6fO9.8cZ4w9megPIWDIioQnnUg32Rb.56e",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [
+        {
+          "date": "2025-08-30T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68b2e6cf6bf255d1862c2958",
+          "_id": "68b2eabf6b063ccf1fbed5f6"
+        }
+      ],
+      "examResult": [
+        {
+          "subName": "68aac51b6a7c94d6f374d864",
+          "marksObtained": 50,
+          "_id": "68b2ea806b063ccf1fbed5a4"
+        },
+        {
+          "subName": "68a992b553cfafde65c98bbd",
+          "marksObtained": 70,
+          "_id": "68b2eb146b063ccf1fbed73b"
+        }
+      ],
+      "__v": 3
+    },
+    {
+      "_id": "68aebc67ca3db354bf3a3346",
+      "name": "addis",
+      "rollNum": 4,
+      "password": "$2b$10$C3v.ho/7Ly2ilsBocwVyzul1F5.eE4ru.B6yagk2.sMTw/3eWDQeG",
+      "sclassName": "68aebc54ca3db354bf3a3338",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [],
+      "examResult": [],
+      "__v": 0
+    },
+    {
+      "_id": "68aef6fdfc739bdf1abbf030",
+      "name": "stu3",
+      "rollNum": 1,
+      "password": "$2b$10$pqvHTiENvO7D3uimoobaRelJPfOIdQlq7QaRIKPnYRi8NIWKNu2T2",
+      "sclassName": "68aef6eefc739bdf1abbf022",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [],
+      "examResult": [],
+      "__v": 0
+    },
+    {
+      "_id": "68b2e7396bf255d1862c29db",
+      "name": "saba",
+      "rollNum": 10,
+      "password": "$2b$10$rnSz2Oqge/7pJhL0zpnqbOKFFom1xf5Fy72RGGftBYIqcR863Gz7q",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [
+        {
+          "date": "2025-08-30T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68a992b553cfafde65c98bbd",
+          "_id": "68b2eb2c6b063ccf1fbed7e1"
+        }
+      ],
+      "examResult": [
+        {
+          "subName": "68a992b553cfafde65c98bbd",
+          "marksObtained": 90,
+          "_id": "68b2eb3a6b063ccf1fbed855"
+        }
+      ],
+      "__v": 2
+    },
+    {
+      "_id": "68b2eaa26b063ccf1fbed5c3",
+      "name": "kn",
+      "rollNum": 4,
+      "password": "$2b$10$YFFjerCmakQ7s3Td3oy7Puxjl6oRwPx66K9ByKJgGQUBoDeEVgBXu",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "role": "Student",
+      "attendance": [
+        {
+          "date": "2025-08-30T00:00:00.000Z",
+          "status": "Present",
+          "subName": "68a992b553cfafde65c98bbd",
+          "_id": "68b2eb596b063ccf1fbed923"
+        }
+      ],
+      "examResult": [
+        {
+          "subName": "68a992b553cfafde65c98bbd",
+          "marksObtained": 67,
+          "_id": "68b2eb4a6b063ccf1fbed8a2"
+        }
+      ],
+      "__v": 2
+    }
+  ],
+  "teachers": [
+    {
+      "_id": "68a99a5653cfafde65c98d01",
+      "name": "lama",
+      "email": "lama@gmail.com",
+      "password": "$2b$10$PsOg929B8XrXNtxXTkTKaeqB0XMXaIyijbsplAOaLN578IPI639oW",
+      "role": "Teacher",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "teachSubject": "68a992b553cfafde65c98bbd",
+      "teachSclass": "68a6cb895df6e1d789fd4f96",
+      "attendance": [],
+      "createdAt": "2025-08-23T10:39:18.834Z",
+      "updatedAt": "2025-08-23T10:39:18.834Z",
+      "__v": 0
+    },
+    {
+      "_id": "68ad7cfa8fcd0d4e75e1a577",
+      "name": "gech",
+      "email": "gech@gmail.com",
+      "password": "$2b$10$Pyj0PrsbFbnO.zAG0f1aL.c7/XVlDVM1RCD7YOB2yjZESy9/ZW2kO",
+      "role": "Teacher",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "teachSubject": "68aafb4fef9f442ffd825349",
+      "teachSclass": "68aafb35ef9f442ffd825330",
+      "attendance": [],
+      "createdAt": "2025-08-26T09:23:06.698Z",
+      "updatedAt": "2025-08-26T09:23:06.698Z",
+      "__v": 0
+    },
+    {
+      "_id": "68aef638fc739bdf1abbefb4",
+      "name": "mik",
+      "email": "mik@gmail.com",
+      "password": "$2b$10$u.RRZmVDvSXYRkX1PPEjouIdMyMvCmAMbG2tCkbTX/XN9yyN2ol.a",
+      "role": "Teacher",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "teachSubject": "68aef484fc739bdf1abbef82",
+      "teachSclass": "68aafb35ef9f442ffd825330",
+      "attendance": [],
+      "createdAt": "2025-08-27T12:12:40.686Z",
+      "updatedAt": "2025-08-27T12:12:40.686Z",
+      "__v": 0
+    }
+  ],
+  "sclasses": [
+    {
+      "_id": "68a6cb895df6e1d789fd4f96",
+      "sclassName": "ROOM1",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-21T07:32:25.404Z",
+      "updatedAt": "2025-08-21T07:32:25.404Z",
+      "__v": 0
+    },
+    {
+      "_id": "68aafb35ef9f442ffd825330",
+      "sclassName": "ROOM2",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-24T11:44:53.583Z",
+      "updatedAt": "2025-08-24T11:44:53.583Z",
+      "__v": 0
+    },
+    {
+      "_id": "68adad052d4110b73baf4552",
+      "sclassName": "ROOM1",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-26T12:48:05.624Z",
+      "updatedAt": "2025-08-26T12:48:05.624Z",
+      "__v": 0
+    },
+    {
+      "_id": "68adb5d3af8b191b795b1d91",
+      "sclassName": "ROOM1",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-26T13:25:39.501Z",
+      "updatedAt": "2025-08-26T13:25:39.501Z",
+      "__v": 0
+    },
+    {
+      "_id": "68adb8fc637ca895eb5a717a",
+      "sclassName": "Room3",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-26T13:39:08.807Z",
+      "updatedAt": "2025-08-26T13:39:08.807Z",
+      "__v": 0
+    },
+    {
+      "_id": "68aebc54ca3db354bf3a3338",
+      "sclassName": "ROOM5",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-27T08:05:40.967Z",
+      "updatedAt": "2025-08-27T08:05:40.967Z",
+      "__v": 0
+    },
+    {
+      "_id": "68aec9ef9660bb8796c19ad4",
+      "sclassName": "Room2",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-27T09:03:43.109Z",
+      "updatedAt": "2025-08-27T09:03:43.109Z",
+      "__v": 0
+    },
+    {
+      "_id": "68aef6eefc739bdf1abbf022",
+      "sclassName": "ROOM6",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-27T12:15:42.549Z",
+      "updatedAt": "2025-08-27T12:15:42.549Z",
+      "__v": 0
+    }
+  ],
+  "admins": [
+    {
+      "_id": "68a6ca7c5df6e1d789fd4f7c",
+      "name": "kbb",
+      "email": "antibugger21@gmail.com",
+      "password": "password",
+      "role": "Admin",
+      "schoolName": "test",
+      "__v": 0
+    },
+    {
+      "_id": "68a9bf646d5984c338d36a29",
+      "name": "kb",
+      "email": "antibugger27@gmail.com",
+      "password": "password",
+      "role": "Admin",
+      "schoolName": "test1",
+      "__v": 0
+    },
+    {
+      "_id": "68aacf7e6a7c94d6f374d96f",
+      "name": "test",
+      "email": "antibugger22@gmail.com",
+      "password": "123",
+      "role": "Admin",
+      "schoolName": "test12",
+      "__v": 0
+    },
+    {
+      "_id": "68b2ebf165c467a0fa02dcf7",
+      "name": "admin",
+      "email": "test2@gmail.com",
+      "password": "123",
+      "role": "Admin",
+      "schoolName": "test2",
+      "__v": 0
+    }
+  ],
+  "complains": [
+    {
+      "_id": "68a804cb2742bab72132d01e",
+      "user": "68a6cbb15df6e1d789fd4fa4",
+      "date": "2025-08-22T00:00:00.000Z",
+      "complaint": "shortage of time for each session",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0
+    },
+    {
+      "_id": "68a832ae2742bab72132d782",
+      "user": "68a6cca25df6e1d789fd4fed",
+      "date": "2025-08-22T00:00:00.000Z",
+      "complaint": "classes are very small",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0
+    },
+    {
+      "_id": "68a86bef2742bab72132de18",
+      "user": "68a6cbb15df6e1d789fd4fa4",
+      "date": "2025-08-22T00:00:00.000Z",
+      "complaint": "the class is very small",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0
+    },
+    {
+      "_id": "68a9a12a6d5984c338d364b8",
+      "user": "68a9736327c3192b406e1e59",
+      "date": "2025-08-30T00:00:00.000Z",
+      "complaint": "shortage of time",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0
+    },
+    {
+      "_id": "68aad2b66a7c94d6f374dabc",
+      "user": "68a9736327c3192b406e1e59",
+      "date": "2025-08-24T00:00:00.000Z",
+      "complaint": "testt",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0
+    },
+    {
+      "_id": "68aad3556a7c94d6f374db3d",
+      "user": "68a99a5653cfafde65c98d01",
+      "date": "2025-08-24T00:00:00.000Z",
+      "complaint": "class busy",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0
+    }
+  ],
+  "notices": [
+    {
+      "_id": "68aeb392ca3db354bf3a3228",
+      "title": "Registration Day",
+      "details": "The Registration Day is sep 1,2018",
+      "date": "2025-08-27T00:00:00.000Z",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "createdAt": "2025-08-27T07:28:18.326Z",
+      "updatedAt": "2025-08-27T07:28:18.326Z",
+      "__v": 0
+    }
+  ],
+  "subjects": [
+    {
+      "_id": "68a992b553cfafde65c98bbd",
+      "subName": "c#",
+      "subCode": "05",
+      "sessions": "5",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-23T10:06:45.112Z",
+      "updatedAt": "2025-08-23T10:39:18.843Z",
+      "teacher": "68a99a5653cfafde65c98d01"
+    },
+    {
+      "_id": "68a9a4e06d5984c338d36632",
+      "subName": "react",
+      "subCode": "3",
+      "sessions": "3",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-23T11:24:16.182Z",
+      "updatedAt": "2025-08-24T11:45:36.998Z"
+    },
+    {
+      "_id": "68aac51b6a7c94d6f374d864",
+      "subName": "java",
+      "subCode": "02",
+      "sessions": "2",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-24T07:54:03.463Z",
+      "updatedAt": "2025-08-24T11:45:29.917Z",
+      "teacher": "68aad1506a7c94d6f374d9e4"
+    },
+    {
+      "_id": "68aacfeb6a7c94d6f374d991",
+      "subName": "java",
+      "subCode": "4",
+      "sessions": "4",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-24T08:40:11.183Z",
+      "updatedAt": "2025-08-24T08:40:11.183Z"
+    },
+    {
+      "_id": "68aad0e96a7c94d6f374d9b2",
+      "subName": "java",
+      "subCode": "3",
+      "sessions": "3",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-24T08:44:25.671Z",
+      "updatedAt": "2025-08-24T08:44:25.671Z"
+    },
+    {
+      "_id": "68aafb1cef9f442ffd825323",
+      "subName": "javas",
+      "subCode": "4",
+      "sessions": "4",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-24T11:44:28.863Z",
+      "updatedAt": "2025-08-24T11:44:28.863Z"
+    },
+    {
+      "_id": "68aafb4fef9f442ffd825349",
+      "subName": "JAVA",
+      "subCode": "1",
+      "sessions": "1",
+      "sclassName": "68aafb35ef9f442ffd825330",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-24T11:45:19.503Z",
+      "updatedAt": "2025-08-26T09:23:06.702Z",
+      "teacher": "68ad7cfa8fcd0d4e75e1a577"
+    },
+    {
+      "_id": "68aeb3d8ca3db354bf3a325d",
+      "subName": "flutter",
+      "subCode": "10",
+      "sessions": "2",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-27T07:29:28.844Z",
+      "updatedAt": "2025-08-27T07:29:28.844Z"
+    },
+    {
+      "_id": "68aeb43bca3db354bf3a3290",
+      "subName": "flutter",
+      "subCode": "6",
+      "sessions": "2",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-27T07:31:07.662Z",
+      "updatedAt": "2025-08-27T07:31:07.662Z"
+    },
+    {
+      "_id": "68aebc79ca3db354bf3a3351",
+      "subName": ".net",
+      "subCode": "1",
+      "sessions": "1",
+      "sclassName": "68aebc54ca3db354bf3a3338",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-27T08:06:17.142Z",
+      "updatedAt": "2025-08-27T08:06:17.142Z"
+    },
+    {
+      "_id": "68aef484fc739bdf1abbef82",
+      "subName": "js",
+      "subCode": "1",
+      "sessions": "1",
+      "sclassName": "68aafb35ef9f442ffd825330",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-27T12:05:25.004Z",
+      "updatedAt": "2025-08-27T12:12:40.690Z",
+      "teacher": "68aef638fc739bdf1abbefb4"
+    },
+    {
+      "_id": "68aef711fc739bdf1abbf03b",
+      "subName": "react",
+      "subCode": "1",
+      "sessions": "1",
+      "sclassName": "68aef6eefc739bdf1abbf022",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-27T12:16:17.935Z",
+      "updatedAt": "2025-08-27T12:16:17.935Z"
+    },
+    {
+      "_id": "68b2e6cf6bf255d1862c2958",
+      "subName": "database",
+      "subCode": "1",
+      "sessions": "1",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-30T11:55:59.446Z",
+      "updatedAt": "2025-08-30T11:55:59.446Z"
+    },
+    {
+      "_id": "68b2ea5c6b063ccf1fbed561",
+      "subName": "c#",
+      "subCode": "5",
+      "sessions": "5",
+      "sclassName": "68a6cb895df6e1d789fd4f96",
+      "school": "68a6ca7c5df6e1d789fd4f7c",
+      "__v": 0,
+      "createdAt": "2025-08-30T12:11:08.877Z",
+      "updatedAt": "2025-08-30T12:11:08.877Z"
+    }
+  ]
+}
